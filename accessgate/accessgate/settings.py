@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'accessgate_db',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -113,7 +113,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'aryabratdash81@gmail.com'
-EMAIL_HOST_PASSWORD = 'frpiifitumnebkkd'
+EMAIL_HOST_PASSWORD = 'app password'
 
 
 
