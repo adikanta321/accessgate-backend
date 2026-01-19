@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Permissions</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+
+<h3>Create Permission</h3>
+
+<input id="perm" class="form-control mb-2" placeholder="Permission code (ex: CREATE_USER)">
+<button class="btn btn-primary" onclick="createPerm()">Create</button>
+
+<hr>
+
+<h4>Existing Permissions</h4>
+<ul id="permList" class="list-group"></ul>
+
+<script>
+const token = localStorage.getItem("token");
+
+function loadPerms(){
+  fetch("http://127.0.0.1:8000/api/roles/permissions/", {
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById("permList");
+    list.innerHTML = "";
+    data.forEach(p => {
+      const li = document.createElement("li");
+      li.className = "list-group-item";
+      li.innerText = p.code;
+      list.appendChild(li);
+    });
+  });
+}
+
+function createPerm(){
+  fetch("http://127.0.0.1:8000/api/roles/permissions/", {
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":"Bearer " + token
+    },
+    body: JSON.stringify({
+      code: document.getElementById("perm").value
+    })
+  })
+  .then(res => res.json())
+  .then(() => {
+    document.getElementById("perm").value = "";
+    loadPerms();
+  });
+}
+
+loadPerms();
+</script>
+
+</body>
+</html>
